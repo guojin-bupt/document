@@ -15,17 +15,20 @@ public class Levenshtein {
     public static int getDistance(String str1, String str2) {
         int len1 = str1.length();
         int len2 = str2.length();
-        if (len1 == 0)
+        if (len1 == 0) {
             return len2;
-        else if (len2 == 0)
+        } else if (len2 == 0) {
             return len1;
+        }
 
         int[][] disM = new int[len1 + 1][len2 + 1];
-        for (int i = 0; i <= len2; ++i)
+        for (int i = 0; i <= len2; ++i) {
             disM[0][i] = i;
-        for (int j = 0; j <= len1; ++j)
+        }
+        for (int j = 0; j <= len1; ++j) {
             disM[j][0] = j;
-        for (int i = 1; i <= len1; ++i)
+        }
+        for (int i = 1; i <= len1; ++i) {
             for (int j = 1; j <= len2; ++j) {
                 int top = disM[i - 1][j] + 1;// 删除
                 int left = disM[i][j - 1] + 1;// 添加
@@ -33,6 +36,7 @@ public class Levenshtein {
 
                 disM[i][j] = top < left ? (top < lt ? top : lt) : (left < lt ? left : lt);
             }
+        }
         return disM[len1][len2];
     }
 
@@ -40,7 +44,6 @@ public class Levenshtein {
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str1 = null;
         String str2 = null;
@@ -48,14 +51,12 @@ public class Levenshtein {
         try {
             str1 = br.readLine();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("str2:");
         try {
             str2 = br.readLine();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println(getDistance(str1, str2));
